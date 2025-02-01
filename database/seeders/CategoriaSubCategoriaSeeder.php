@@ -11,6 +11,8 @@ class CategoriaSubCategoriaSeeder extends Seeder
     public function run()
     {
         // Lista de categorías con sus subcategorías
+        //php artisan db:seed --class=CategoriaSubCategoriaSeeder
+
         $categorias = [
             [
                 'nombre' => 'Computadoras y Laptops',

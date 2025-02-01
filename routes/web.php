@@ -48,6 +48,7 @@ Route::get('notificaciones', [NotificacionController::class, 'index'])->name('no
 Route::get('notificaciones/{id}', [NotificacionController::class, 'show'])->name('notificaciones.show');
 Route::post('notificaciones/mark-all-read', [NotificacionController::class, 'markAllAsRead'])->name('notificaciones.markAllAsRead');
 Route::delete('notificaciones/{id}', [NotificacionController::class, 'destroy'])->name('notificaciones.destroy');
+Route::get('/mantenimientos/export', [MantenimientoController::class, 'export'])->name('mantenimientos.export');
 
 Route::get('/ventas/export', [VentaController::class, 'export'])->name('ventas.export');
 Route::get('/ventas/reporte', [VentaController::class, 'reporte'])->name('ventas.reporte');

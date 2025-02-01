@@ -14,7 +14,7 @@
                                 <h3 class="p-2 bold">Mantenimientos   <i class="nav-icon fas fa-store"></i></h3>
                             </div>
                             <div class="d-flex justify-content-end mt-3">
-                                <form action="{{ route('ventas.export') }}" method="GET" class="d-flex align-items-end">
+                                <form action="{{ route('mantenimientos.export') }}" method="GET" class="d-flex align-items-end">
                                     @csrf
                                     <div class="me-2">
                                         <label for="start_date" class="form-label mb-0">Fecha Inicio</label>

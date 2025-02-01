@@ -59,7 +59,18 @@
                                     <p>Ventas</p>
                                 </a>
                             </li>
-
+                            <li class="nav-item">
+                                <a href="{{route('mantenimientos.index')}}" class="nav-link">
+                                    <i class="nav-icon fas fa-wallet"></i>
+                                    <p>Mantenimientos</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{route('mantenimientos.create')}}" class="nav-link">
+                                    <i class="nav-icon fas fa-wallet"></i>
+                                    <p>Registrar Mantenimiento</p>
+                                </a>
+                            </li>
                             <!-- Finanzas -->
                             <li class="nav-item">
                                 <a href="{{route('aperturas.index')}}" class="nav-link">

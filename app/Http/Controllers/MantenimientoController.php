@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\MantenimientoExport;
 use App\Models\AperturaCaja;
 use App\Models\Caja;
 use App\Models\DetalleMantenimiento;
@@ -15,6 +16,7 @@ use App\Models\User;
 use Auth;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 use Yajra\DataTables\DataTables;  
 use Alert;
 class MantenimientoController extends Controller
@@ -449,5 +451,30 @@ class MantenimientoController extends Controller
 
         Alert::error('¡Error!', 'Datos invalidos')->showConfirmButton('Aceptar', 'rgba(79, 59, 228, 1)');
         return redirect()->route('mantenimientos.index');
+    }
+
+    public function export(Request $request)
+    {
+        $request->validate([
+            'start_date' => 'required|date',
+            'end_date' => 'required|date|after_or_equal:start_date',
+        ]);
+
+        $startDate = $request->start_date;
+        $endDate = $request->end_date;
+        $type = $request->type;
+
+        if ($type == 'EXCEL') {
+            return Excel::download(new MantenimientoExport($startDate, $endDate), 'ventas.xlsx');
+        } elseif ($type == 'PDF') {
+            $ventas = Mantenimiento::with(['user', 'empleado'])
+                ->whereBetween('created_at', [$startDate, $endDate])
+                ->get();
+
+            $pdf = \PDF::loadView('exports.ventas_pdf', compact('ventas'));
+
+            // Abre el PDF en el navegador
+            return $pdf->stream('ventas.pdf');
+        }
     }
 }

@@ -109,26 +109,7 @@
     </div>
 </div>
 
-<!-- Tabla de Movimientos -->
-<h4>Movimientos</h4>
-<table class="table" id="movimientosTable">
-    <thead>
-        <tr>
-            <th>Venta ID</th>
-            <th>Total en Bolívares</th>
-            <th>Total en Dólares</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach($movimientos as $movimiento)
-        <tr>
-            <td>{{ $movimiento['venta_id'] }}</td>
-            <td>{{ number_format($movimiento['total_bolivares'], 2) }}</td>
-            <td>{{ number_format($movimiento['total_dolares'], 2) }}</td>
-        </tr>
-        @endforeach
-    </tbody>
-</table>
+ 
 
 @if($apertura->estatus !== 'Finalizado')
 <!-- Botón para cerrar caja -->
@@ -157,14 +138,14 @@
             e.preventDefault();
 
             Swal.fire({
-                title: 'Advertencia',
-                text: "Esta acción implica que deberá abrir otra caja para seguir vendiendo ¿esta seguro?",
+                title: 'Confirmar',
+                text: "¿Esta seguro de que desea realizar esta acción?",
                 icon: 'info',
                 showCancelButton: true,
                 confirmButtonColor: 'green',
                 cancelButtonColor: 'red',
-                confirmButtonText: 'Sí, cerrar caja',
-                cancelButtonText: 'Cancelar'
+                confirmButtonText: 'Sí',
+                cancelButtonText: 'No'
             }).then((result) => {
                 if (result.isConfirmed) {
                     this.submit();
