@@ -1,0 +1,151 @@
+<div class="row">
+    <!-- Nombre Field -->
+    <div class="form-group col-sm-12 col-md-6">
+        {!! Form::label('nombre', 'Nombre:', ['class' => 'font-weight-bold']) !!}
+        {!! Form::text('nombre', null, ['class' => 'form-control round', 'required']) !!}
+        @error('nombre')
+            <p class="text-danger">{{ $message }}</p>
+        @enderror
+    </div>
+
+    <!-- Cantidad Field -->
+    <div class="form-group col-sm-12 col-md-6">
+        {!! Form::label('cantidad', 'Cantidad:', ['class' => 'font-weight-bold']) !!}
+        {!! Form::number('cantidad', null, ['class' => 'form-control round', 'step' => '1', 'required', 'id' => 'cantidad']) !!}
+        @error('cantidad')
+            <p class="text-danger">{{ $message }}</p>
+        @enderror
+    </div>
+
+    <!-- Descripción Field -->
+    <div class="form-group col-sm-12 col-md-6">
+        {!! Form::label('descripcion', 'Descripción:', ['class' => 'font-weight-bold']) !!}
+        {!! Form::textarea('descripcion', null, ['class' => 'form-control round', 'rows' => 3, 'required']) !!}
+        @error('descripcion')
+            <p class="text-danger">{{ $message }}</p>
+        @enderror
+    </div>
+
+    <!-- Subcategoría Field -->
+    <div class="form-group col-sm-12 col-md-6">
+        {!! Form::label('sub_categoria_id', 'Subcategoría:', ['class' => 'font-weight-bold']) !!}
+        {!! Form::select('sub_categoria_id', $subcategorias, null, ['class' => 'form-control round', 'placeholder' => 'Selecciona una subcategoría', 'required']) !!}
+        @error('sub_categoria_id')
+            <p class="text-danger">{{ $message }}</p>
+        @enderror
+    </div>
+
+    <!-- Precio Venta Field -->
+    <div class="form-group col-sm-12 col-md-6">
+        {!! Form::label('precio_venta', 'Precio Venta:', ['class' => 'font-weight-bold']) !!}
+        {!! Form::number('precio_venta', null, ['class' => 'form-control round', 'step' => '0.01', 'id' => 'precio_venta', 'required']) !!}
+        @error('precio_venta')
+            <p class="text-danger">{{ $message }}</p>
+        @enderror
+    </div>
+
+    <!-- Precio Compra Field -->
+    <div class="form-group col-sm-12 col-md-6">
+        {!! Form::label('precio_compra', 'Precio Compra:', ['class' => 'font-weight-bold']) !!}
+        {!! Form::number('precio_compra', null, ['class' => 'form-control round', 'step' => '0.01', 'id' => 'precio_compra', 'required']) !!}
+        @error('precio_compra')
+            <p class="text-danger">{{ $message }}</p>
+        @enderror
+    </div>
+
+    <!-- Imágenes Field -->
+    <div class="form-group col-12 col-md-6 mb-3">
+        {!! Form::label('imagenes', 'Imágenes:', ['class' => 'font-weight-bold']) !!}
+        {!! Form::file('imagenes[]', ['class' => 'form-control rounded', 'accept' => 'image/*', 'multiple' => true, 'id' => 'imagenes']) !!}
+        <p id="imagenes_error" class="text-danger d-none">Puedes subir hasta 5 imágenes.</p>
+    </div>
+
+    <!-- Contenedor para previsualizar las imágenes -->
+    <div class="form-group col-12 mb-3" id="imagenes-preview"></div>
+</div>
+
+<!-- Botones de acción -->
+<div class="float-end">
+    {!! Form::submit('Guardar', ['class' => 'btn btn-primary round', 'id' => 'submit_btn']) !!}
+</div>
+
+
+<script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function () {
+        let precioCompraInput = document.getElementById('precio_compra');
+        let precioVentaInput = document.getElementById('precio_venta');
+        let submitBtn = document.getElementById('submit_btn');
+        let precioCompraError = document.getElementById('precio_compra_error');
+        let precioVentaError = document.getElementById('precio_venta_error');
+        let imagenesInput = document.getElementById('imagenes');
+        let previewContainer = document.getElementById('imagenes-preview');
+        let imagenesError = document.getElementById('imagenes_error');
+
+        
+       
+
+        // Función para manejar la previsualización y eliminación de imágenes
+        imagenesInput.addEventListener('change', function (event) {
+            let files = event.target.files;
+    let maxFiles = 5; // Máximo de archivos permitidos
+
+    // Limpiar la previsualización actual
+    previewContainer.innerHTML = '';
+
+    // Validar cantidad de archivos seleccionados
+    if (files.length > maxFiles) {
+        imagenesError.style.display = 'block';
+        imagenesInput.value = ''; // Limpiar la selección de archivos
+        return;
+    } else {
+        imagenesError.style.display = 'none';
+    }
+
+    // Mostrar previsualización de cada imagen seleccionada
+    Array.from(files).forEach((file) => {
+        let reader = new FileReader();
+        reader.onload = function (e) {
+            let imgContainer = document.createElement('div');
+            imgContainer.style.position = 'relative';
+            imgContainer.style.display = 'inline-block';
+            imgContainer.style.margin = '5px';
+
+            let img = document.createElement('img');
+            img.src = e.target.result;
+            img.style.width = '300px';
+            img.style.height = '300px';
+            img.style.objectFit = 'cover';
+
+            let removeBtn = document.createElement('button');
+            removeBtn.innerText = 'X';
+            removeBtn.style.position = 'absolute';
+            removeBtn.style.top = '0';
+            removeBtn.style.right = '0';
+            removeBtn.style.backgroundColor = 'black';
+            removeBtn.style.color = 'white';
+            removeBtn.style.border = 'none';
+            removeBtn.style.borderRadius = '50%';
+            removeBtn.style.width = '50px';
+            removeBtn.style.height = '50px';
+            removeBtn.style.cursor = 'pointer';
+
+            removeBtn.addEventListener('click', function () {
+                imgContainer.remove();
+                let dt = new DataTransfer();
+                for (let i = 0; i < files.length; i++) {
+                    if (files[i] !== file) {
+                        dt.items.add(files[i]);
+                    }
+                }
+                imagenesInput.files = dt.files;
+            });
+
+            imgContainer.appendChild(img);
+            imgContainer.appendChild(removeBtn);
+            previewContainer.appendChild(imgContainer);
+        }
+        reader.readAsDataURL(file);
+    });
+});
+    });
+</script>
