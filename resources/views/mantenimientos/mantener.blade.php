@@ -11,7 +11,7 @@
                                 @include('flash::message')
                             </div>
                             <div class="col-md-6 col-6">
-                                <h3 class="p-2 bold">Registrar Mantenimiento <i
+                                <h3 class="p-2 bold">Registrar Servicio Técnico<i
                                         class="nav-icon fas fa-cash-register"></i></h3>
                             </div>
 

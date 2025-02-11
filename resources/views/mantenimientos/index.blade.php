@@ -11,7 +11,7 @@
                                 @include('flash::message') 
                             </div>
                             <div class="col-md-6 col-6">
-                                <h3 class="p-2 bold">Mantenimientos   <i class="nav-icon fas fa-store"></i></h3>
+                                <h3 class="p-2 bold">Servicios   <i class="nav-icon fas fa-store"></i></h3>
                             </div>
                             <div class="d-flex justify-content-end mt-3">
                                 <form action="{{ route('mantenimientos.export') }}" method="GET" class="d-flex align-items-end">

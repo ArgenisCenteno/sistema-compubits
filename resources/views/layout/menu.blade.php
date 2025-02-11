@@ -60,15 +60,22 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{route('mantenimientos.index')}}" class="nav-link">
-                                    <i class="nav-icon fas fa-wallet"></i>
-                                    <p>Mantenimientos</p>
+                                <a href="{{ route('mantenimientos.create') }}" class="nav-link">
+                                    <i class="nav-icon fas fa-plus-circle"></i> <!-- Icon for adding/creating -->
+                                    <p>Registrar Servicio</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{route('mantenimientos.create')}}" class="nav-link">
-                                    <i class="nav-icon fas fa-wallet"></i>
-                                    <p>Registrar Mantenimiento</p>
+                                <a href="{{ route('mantenimientos.index') }}" class="nav-link">
+                                    <i class="nav-icon fas fa-cogs"></i> <!-- Icon for maintenance/services -->
+                                    <p>Servicios</p>
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a href="{{route('proveedores.index')}}" class="nav-link">
+                                    <i class="nav-icon fas fa-users"></i>
+                                    <p>Proveedores</p>
                                 </a>
                             </li>
                             <!-- Finanzas -->

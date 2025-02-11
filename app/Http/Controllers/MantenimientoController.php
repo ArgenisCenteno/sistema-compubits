@@ -117,7 +117,7 @@ class MantenimientoController extends Controller
             $productos = Producto::with('subCategoria.categoria')
             ->whereHas('subCategoria.categoria', function ($query) {
                 $query->where('nombre', 'SERVICIOS');
-            })
+            }) 
             ->get();
 
             return DataTables::of($productos)

@@ -3,7 +3,7 @@
         <span >Detalles</span>
     </a>
     <a href="{{ $pdfUrl }}" target="_blank" class="btn btn-primary btn-sm">
-        <span >Ticket</span>
+        <span >PDF</span>
     </a>
     @if(Auth::user()->hasRole('superAdmin'))
     <form action="{{ $deleteUrl }}" method="POST" style="display:inline;" class="btn-delete">

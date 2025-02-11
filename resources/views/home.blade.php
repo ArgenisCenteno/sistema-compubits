@@ -7,7 +7,7 @@
             <div class="row">
                 <div class="col-sm-6 ">
                     </div>
-                    <h1 class="card text-center mb-0">Bienvenido a <strong class="text-primary">ComputBits C.A</strong></h1>
+                    <h1 class="card text-center mb-0">Bienvenido a <strong class="text-primary">CompuBits C.A</strong></h1>
                 <div class="col-sm-6">
                     
                 </div>

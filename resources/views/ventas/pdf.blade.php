@@ -4,178 +4,159 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CompuBits</title>
+    <title>Factura</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+            border: none;
+            background-color: #f9f9f9;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+            border-radius: 8px;
+            background: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2 {
+            text-align: center;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+        .footer {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        .footer div {
+            width: 48%;
+        }
+        .signature {
+            text-align: center;
+            padding-top: 10px;
+            border-top: 1px solid #000;
+        }
+    </style>
 </head>
 
-<body
-    style="font-family: Arial, sans-serif; margin: 0; padding: 10px; line-height: 1.6; border: none; background-color: #f9f9f9;">
-    <div
-        style="max-width: 800px; margin: auto; padding: 10px; border-radius: 8px; background: #fff; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
-        <!-- Encabezado -->
-      
-        <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
+<body>
+    <div class="container">
+        <h1>Factura de Venta</h1>
+        <table>
             <thead>
                 <tr>
-                    <!-- Columna para el Logo -->
-                    <th style="border: 1px solid black; padding: 8px; text-align: center; font-size: 18px; width: 15%;">
-                    <img src="{{ public_path('iconos/logo-final.png') }}" alt="Logo"
-                            style="max-width: 100px; height: auto;">
-                    </th>
-                    <!-- Columna para el Nombre de la Empresa -->
-                    <th colspan="2"
-                        style="border: 1px solid black; padding: 8px; text-align: center; font-size: 22px; font-weight: bold; width: 70%;">
-                        <h3 style="text-align: center; color: black; font-size: 24px; margin: 20px 0;">TICKET DE VENTA</h3>
-                    </th>
-                    <!-- Columna para el Número de Venta -->
-                    
-                    <th style="border: 1px solid black; padding: 8px; text-align: center; font-size: 16px; width: 15%;">
-                        {{$fechaVenta}}
+                    <th colspan="2" style="font-size: 22px; font-weight: bold;">COMPUBITS C.A.</th>
+                    <th style="font-size: 16px; text-align: center;">
+                        <strong>Factura No: {{$venta->id}}</strong>
                     </th>
                 </tr>
-            </thead>
-        </table>
-        <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
-            <thead>
                 <tr>
-                    <!-- Columna para el Logo -->
-                    <th style="border: 1px solid black; padding: 8px; text-align: center; font-size: 18px; width: 15%;">
-                    <img src="data:image/svg+xml;base64,{{ base64_encode($qrCode) }}" alt="QR Code"
-                    style="max-width: 200px; height: auto;">
-                    </th>
-                    <!-- Columna para el Nombre de la Empresa -->
-                    <th colspan="2"
-                        style="border: 1px solid black; padding: 8px; text-align: center; font-size: 22px; font-weight: bold; width: 70%;">
-                        COMPUBITS C.A
-                    </th>
-                    <!-- Columna para el Número de Venta -->
-                    @php
-                        $id = str_pad($venta->id, 8, "0", STR_PAD_LEFT);
-                    @endphp
-                    <th style="border: 1px solid black; padding: 8px; text-align: center; font-size: 22px; width: 15%;">
-                        {{$id}}
-                    </th>
+                    <th style="font-size: 16px;">Fecha de Emisión:</th>
+                    <td style="font-size: 16px;">{{$fechaVenta}}</td>
+                    <th style="font-size: 16px; text-align: center;"> </th>
                 </tr>
             </thead>
         </table>
 
-
-        <!-- Título -->
-
-        <!-- Detalles del cliente y vendedor -->
-        <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
+        <!-- Datos del Cliente -->
+        <table>
             <thead>
                 <tr>
-                    <th style="border: 1px solid black; padding: 8px; text-align: left;">CLIENTE</th>
-                    <th style="border: 1px solid black; padding: 8px; text-align: left;">VENDEDOR.</th>
+                    <th>CLIENTE</th>
+                    <th>VENDEDOR</th>
                 </tr>
             </thead>
             <tbody>
-
                 <tr>
-                    <td style="padding: 8px; border: 1px solid black;">{{$userArray['name']}}</td>
-                    <td style="padding: 8px; border: 1px solid black;">{{$vendedorArray['name']}}</td>
-
-
+                    <td>{{$userArray['name']}}</td>
+                    <td>{{$vendedorArray['name']}}</td>
                 </tr>
             </tbody>
         </table>
 
-
-        <!-- Tabla de productos -->
-        <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
+        <!-- Conceptos de los productos -->
+        <table>
             <thead>
                 <tr>
-                    <th style="border: 1px solid black; padding: 8px; text-align: left;">DESCRIPCION</th>
-                    <th style="border: 1px solid black; padding: 8px; text-align: left;">CANT.</th>
-                    <th style="border: 1px solid black; padding: 8px; text-align: left;">PRECIO UNIT.</th>
-
-                    <th style="border: 1px solid black; padding: 8px; text-align: left;">TOTAL</th>
+                    <th>DESCRIPCIÓN</th>
+                    <th>CANTIDAD</th>
+                    <th>PRECIO UNITARIO</th>
+                    <th>TOTAL</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($venta->detalleVentas as $detalle)
                     <tr>
-                        <td style="padding: 8px; border: 1px solid black;">{{$detalle->producto->nombre}}</td>
-                        <td style="padding: 8px; border: 1px solid black;">{{$detalle->cantidad}}</td>
-                        <td style="padding: 8px; border: 1px solid black;">{{$detalle->precio_producto}}</td>
-
-                        <td style="padding: 8px; border: 1px solid black;">
-                            {{number_format($detalle->impuesto + $detalle->neto, 2)}}
-                        </td>
+                        <td>{{$detalle->producto->nombre}}</td>
+                        <td>{{$detalle->cantidad}}</td>
+                        <td>{{number_format($detalle->precio_producto, 2)}}</td>
+                        <td>{{number_format($detalle->impuesto + $detalle->neto, 2)}}</td>
                     </tr>
                 @endforeach
                 <tr>
-                    <td style="padding: 8px; border: 1px solid black;"></td>
-                    <td style="padding: 8px; border: 1px solid black;"></td>
-                    <td style="padding: 8px; border: 1px solid black;"></td>
-
-                    <td style="padding: 8px; border: 1px solid black;">
-                        <strong> {{number_format($venta->pago->monto_total, 2)}}</strong>
-                    </td>
-
+                    <td colspan="3" style="font-weight: bold; text-align: right;">TOTAL</td>
+                    <td><strong>{{number_format($venta->pago->monto_total, 2)}}</strong></td>
                 </tr>
             </tbody>
         </table>
 
-        <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
-    <thead>
-        <tr>
-            <th style="border: 1px solid black; padding: 8px; text-align: left;">METODO DE PAGO</th>
-            <th style="border: 1px solid black; padding: 8px; text-align: left;">MONTO</th>
-            <th style="border: 1px solid black; padding: 8px; text-align: left;">DIVISA</th>
-        </tr>
-    </thead>
-    <tbody>
-        @php
-            $totalBolivares = 0;
-            $totalDivisa = 0;
-        @endphp
+        <!-- Métodos de pago -->
+        <table>
+            <thead>
+                <tr>
+                    <th>METODO DE PAGO</th>
+                    <th>MONTO</th>
+                    <th>DIVISA</th>
+                </tr>
+            </thead>
+            <tbody>
+                @php
+                    $totalBolivares = 0;
+                    $totalDivisa = 0;
+                @endphp
+                @foreach (json_decode($venta->pago->forma_pago) as $pago)
+                    @if($pago->monto > 0 )
+                        <tr>
+                            <td>{{ $pago->metodo }}</td>
+                            <td>
+                                {{ $pago->metodo == 'Divisa' ? number_format(0, 2) : number_format($pago->monto, 2) }}
+                            </td>
+                            <td>
+                                {{ $pago->metodo != 'Divisa' ? number_format(0, 2) : number_format($pago->monto, 2) }}
+                            </td>
+                        </tr>
+                        @php
+                            if ($pago->metodo != 'Divisa') {
+                                $totalBolivares += $pago->monto;
+                            } else {
+                                $totalDivisa += $pago->monto;
+                            }
+                        @endphp
+                    @endif
+                @endforeach
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td style="font-weight: bold;">Totales</td>
+                    <td style="font-weight: bold;">{{ number_format($totalBolivares, 2) }}</td>
+                    <td style="font-weight: bold;">{{ number_format($totalDivisa, 2) }}</td>
+                </tr>
+            </tfoot>
+        </table>
 
-        @foreach (json_decode($venta->pago->forma_pago) as $pago)
-       @if($pago->monto > 0 )
-            <tr>
-                <td style="padding: 8px; border: 1px solid black;">{{ $pago->metodo }}</td>
-                <td style="padding: 8px; border: 1px solid black;">
-                    {{ $pago->metodo == 'Divisa' ? number_format(0, 2) : number_format($pago->monto, 2) }}
-                </td>
-                <td style="padding: 8px; border: 1px solid black;">
-                    {{ $pago->metodo != 'Divisa' ? number_format(0, 2) : number_format($pago->monto, 2) }}
-                </td>
-            </tr>
-            
-            @php
-                if ($pago->metodo != 'Divisa') {
-                    $totalBolivares += $pago->monto;
-                } else {
-                    $totalDivisa += $pago->monto;
-                }
-            @endphp
-            @endif
-        @endforeach
-    </tbody>
-    <tfoot>
-        <tr>
-            <td style="padding: 8px; border: 1px solid black; font-weight: bold;">Totales</td>
-            <td style="padding: 8px; border: 1px solid black; font-weight: bold;">
-                {{ number_format($totalBolivares, 2) }}
-            </td>
-            <td style="padding: 8px; border: 1px solid black; font-weight: bold;">
-                {{ number_format($totalDivisa, 2) }}
-            </td>
-        </tr>
-    </tfoot>
-</table>
-
-        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
-    <!-- QR Code -->
-     
-
-    <!-- Espacio para firma -->
-    <div style="flex: 1; text-align: center; padding-top: 10px; border-top: 1px solid #000;">
-        <p>Firma del Cliente</p>
-        <div style="height: 50px; border: 1px dashed #000;"></div>
-    </div>
-</div>
+        
 
     </div>
 </body>

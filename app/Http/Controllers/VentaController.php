@@ -44,20 +44,16 @@ class VentaController extends Controller
                 ->addColumn('vendedor', function ($row) {
                     return $row->vendedor->name ?? 'S/D';
                 })
-                ->addColumn('monto_neto', function ($row) {
-                    return number_format($row->pago->monto_neto, 2);
-                })
-                ->addColumn('impuestos', function ($row) {
-                    return number_format($row->pago->impuestos, 2);
-                })
+                 
+              
                 ->addColumn('monto_total', function ($row) {
-                    return number_format($row->pago->monto_total, 2);
+                    return number_format($row->monto_total ?? 0, 2);
                 })
                 ->addColumn('fecha', function ($row) {
                     return $row->created_at->format('Y-m-d'); // Ajusta el formato de fecha aquí
                 })
                 ->addColumn('status', function ($row) {
-                    $status = $row->pago->status;
+                    $status = $row->status;
                     $class = $status == 'Pagado' ? 'primary' : 'danger'; // Clase basada en el estado
                     return '<span class="badge bg-' . $class . '">' . $status . '</span>';
                 })
@@ -154,7 +150,11 @@ class VentaController extends Controller
     public function datatableProductoVenta(Request $request)
     {
         if ($request->ajax()) {
-            $productos = Producto::with('subCategoria')->get(); // Cargar la relación subCategoria
+            $productos = Producto::with('subCategoria.categoria')
+            ->whereHas('subCategoria.categoria', function ($query) {
+                $query->where('nombre','<>', 'SERVICIOS');
+            }) 
+            ->get();
 
             return DataTables::of($productos)
                 ->addColumn('fecha_vencimiento', function ($producto) {

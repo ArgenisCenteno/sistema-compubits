@@ -176,7 +176,9 @@ class UserController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password ?? '12345678'), // Encriptar la contraseña
             'dni' => $request->dni,
-          
+            'sector' => $request->sector ?? '',
+            'calle' => $request->calle ?? '',
+            'casa' => $request->calle ?? '',
             'status' => $request->status,
         ]);
 

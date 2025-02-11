@@ -24,7 +24,7 @@
                     <!-- Columna para el Nombre de la Empresa -->
                     <th colspan="2"
                         style="border: 1px solid black; padding: 8px; text-align: center; font-size: 22px; font-weight: bold; width: 70%;">
-                        <h3 style="text-align: center; color: black; font-size: 24px; margin: 20px 0;">TICKET DE VENTA</h3>
+                        <h3 style="text-align: center; color: black; font-size: 24px; margin: 20px 0;">COMPROBANTE DE SERVICIO</h3>
                     </th>
                     <!-- Columna para el Número de Venta -->
                     

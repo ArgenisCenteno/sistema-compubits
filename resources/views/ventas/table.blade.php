@@ -16,7 +16,7 @@
                 <th>Fecha</th>
                 <th>Estado</th>
                 <th>Opciones</th>
-            </tr>
+            </tr>  
         </thead>
         <tbody></tbody>
     </table>

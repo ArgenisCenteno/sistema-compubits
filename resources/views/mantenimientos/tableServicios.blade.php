@@ -2,7 +2,7 @@
 
 
 <button type="button" class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#productosModal">
-    Ver Productos
+    Ver Precios
 </button>
 <div class="col-md-12 mt-3"
                 style="background-color: rgb(8, 21, 33); color: white; padding: 20px; border-radius: 10px;">
@@ -47,7 +47,7 @@
             <div class="modal-header" style="background-color: rgb(8, 21, 33) !important; color: white !important;">
                 <!-- Logo en el encabezado -->
                 <img src="{{ asset('iconos/logo-final.png') }}" alt="SIAV" style="height: 40px; margin-right: 10px;">
-                <h5 class="modal-title fw-bold" id="productosModalLabel">Lista de Productos</h5>
+                <h5 class="modal-title fw-bold" id="productosModalLabel">Lista de Servicios</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
             </div>
             <div class="modal-body">
