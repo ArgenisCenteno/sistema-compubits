@@ -48,7 +48,7 @@ class RegisterController extends Controller
         ]);
 
         // Assign the 'cliente' role to the user
-        $user->assignRole('cliente');
+        $user->assignRole('empleado');
 
         return $user;
     }

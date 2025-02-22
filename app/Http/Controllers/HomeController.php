@@ -39,7 +39,7 @@ class HomeController extends Controller
     public function index()
     {
 
-
+      //  dd(Auth::user()->hasRole('cliente'));
         if (Auth::user()->hasRole('superAdmin') || Auth::user()->hasRole('empleado')) {
             $ventas = Venta::whereDate('created_at', today())->count();
 
@@ -138,7 +138,7 @@ class HomeController extends Controller
             $productos = DetalleVenta::join('ventas', 'detalle_ventas.id_venta', '=', 'ventas.id')
                 ->where('ventas.user_id', Auth::user()->id)
                 ->count();
-
+                $comprasData = [];
             function isConnected()
             {
                 $connected = @fsockopen("www.google.com", 80); // Intenta conectar al puerto 80 de Google

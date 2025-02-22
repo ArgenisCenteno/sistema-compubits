@@ -8,6 +8,7 @@ use App\Models\User;
 use Hash;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Validator;
 
 class AuthController extends Controller
 {
@@ -41,16 +42,20 @@ class AuthController extends Controller
     {
         
         // Validate the request
-        $this->validate($request, [
+        $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
-            'cedula' => 'required|integer|min:1000000|max:99999999', // Adjusted for 7-8 digits
-            'email' => 'required|string|email|max:255|unique:users',
+            'cedula' => 'required|numeric|unique:users,cedula',
+            'email' => 'required|email|unique:users,email',
             'sector' => 'nullable|string|max:255',
             'calle' => 'nullable|string|max:255',
             'casa' => 'nullable|string|max:255',
-            'password' => 'required|string|min:8|confirmed', // Ensures password confirmation
+            'password' => 'required|min:6|confirmed',
         ]);
-
+    
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+    
         // Create the user
         $user = User::create([
             'name' => $request->name,
@@ -63,8 +68,8 @@ class AuthController extends Controller
             'status' => 'Activo', // Set the status
         ]);
 
-        // Assign the "cliente" role
-        $user->assignRole('cliente');
+      
+        $user->assignRole('empleado');
 
         // Log in the user
         Auth::login($user);

@@ -1,7 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-<section class="vh-100 d-flex align-items-center justify-content-center">
+<section class="vh-100 d-flex align-items-center justify-content-center"  
+style="background-image: url('{{ asset('iconos/fondo.jpg') }}'); background-repeat: no-repeat; background-size: cover;">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
