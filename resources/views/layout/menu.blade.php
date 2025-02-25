@@ -88,7 +88,14 @@
                          
 
                             <!-- Administradores (solo para superAdmin) -->
-                          
+                             @if(Auth::user()->hasRole('superAdmin'))
+                            <li class="nav-item">
+                        <a href="{{route('usuarios.index')}}" class="nav-link">
+                            <i class="nav-icon fas fa-user-cog"></i>
+                            <p>Usuarios</p>
+                        </a>
+                    </li>
+                    @endif
                         </ul>
                     </div>
 
