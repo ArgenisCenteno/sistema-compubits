@@ -190,7 +190,7 @@ class UserController extends Controller
 
             return redirect()->route('usuarios.index');
         } else {
-            $user->assignRole('empleado');
+            $user->assignRole('cliente');
 
             Alert::success('¡Exito!', 'Registro hecho correctamente')->showConfirmButton('Aceptar', 'rgba(79, 59, 228, 1)');
 
